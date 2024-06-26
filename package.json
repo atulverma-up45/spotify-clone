@@ -1,5 +1,6 @@
 {
   "name": "spotify-clone",
+  "description": "Spotify Clone is a web application built using Next.js 14, Supabase, and Stripe. It allows Spotify Premium users to upload and add songs, with playback and liking functionalities available only to authenticated users. The app features subscription management and a responsive design for a seamless user experience across devices.",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -42,5 +43,15 @@
     "supabase": "^1.178.2",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
-  }
+  },
+  "keywords": [
+    "Spotify clone",
+    "Spotify in Next.js"
+  ],
+  "author": "Atul Verma",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atulverma-up45/spotify-clone"
+  },
+  "license": "ISC"
 }
