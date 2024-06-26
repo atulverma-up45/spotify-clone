@@ -41,15 +41,18 @@ const upsertPriceRecord = async (price: Stripe.Price) => {
     unit_amount: price.unit_amount ?? undefined,
     interval: price.recurring?.interval,
     interval_count: price.recurring?.interval_count,
-    trial_perion_days: price.recurring?.trial_period_days,
+    trial_period_days: price.recurring?.trial_period_days,
     metadata: price.metadata,
   };
+
+  // console.log(`Upserting price record: ${JSON.stringify(priceData)}`);
+
   const { error } = await supabaseAdmin.from("prices").upsert([priceData]);
 
   if (error) {
     throw error;
   }
-  console.log(`Price inserted/updated : ${price.id}`);
+  console.log(`Price inserted/updated: ${price.id}`);
 };
 
 const createOrRetriveCustomer = async ({
@@ -72,11 +75,11 @@ const createOrRetriveCustomer = async ({
           supabaseUUID: uuid,
         },
       };
-    if (email) {
-      return (customerData.email = email);
-    }
-
+    if (email) customerData.email = email;
+    
+    console.log("createOrRetriveCustomer data", customerData);
     const customer = await stripe.customers.create(customerData);
+    
     const { error: supabaseError } = await supabaseAdmin
       .from("customers")
       .insert([{ id: uuid, stripe_customer_id: customer.id }]);
@@ -133,7 +136,7 @@ const manageSubscriptionStatusChange = async (
     throw noCustomerError;
   }
 
-  const { id: uuid } = customerData;
+  const { id: uuid } = customerData!;
 
   const subscription = await stripe.subscriptions.retrieve(subscriptionId, {
     expand: ["default_payment_method"],

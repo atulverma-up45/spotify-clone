@@ -1,5 +1,5 @@
 import { Price } from "@/types/types";
-import { url } from "inspector";
+
 
 export const getURL = () => {
   let url =
